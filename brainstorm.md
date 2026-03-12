@@ -1,6 +1,6 @@
 # Descriptors
 
-## What does the descriptor protocol primarily control
+## What the descriptor protocol primarily controls
 
 The descriptor protocol primarily controls attribute access.
 
@@ -34,7 +34,7 @@ Any other behaviors you see with descriptors (validation, type checking, lazy lo
 
 So the straightforward answer is: the descriptor protocol controls attribute access, and everything else flows from that single purpose.
 
-## When Python does attribute lookup, what is the lookup order as it relates to the descriptor protocol and the instance `__dict__`
+## The lookup order as it relates to the descriptor protocol and the instance `__dict__` when Python does attribute lookup
 
 When Python does attribute lookup (e.g., `instance.attr`), the order is:
 
@@ -232,7 +232,7 @@ obj.prop = "new"      # Calls property.__set__, raises AttributeError! ✗
 
 This hierarchy is fundamental to how Python's object model works!
 
-## Implement a descriptor class StaticMethod that emulates a static method
+## Implementation of a descriptor class StaticMethod that emulates a static method
 
 ```python
 class StaticMethod:
@@ -243,7 +243,7 @@ class StaticMethod:
         return self._f
 ```
 
-## What about setting attributes
+## What happens when setting attributes
 
 Attribute setting (assignment) has a different, simpler lookup order than retrieval.
 
@@ -288,7 +288,7 @@ print(obj.x)  # 42 - descriptor still in control
 
 So: **get** checks data descriptors → instance dict → non-data descriptors, but **set** only checks data descriptors → instance dict.
 
-## What about deleting attributes
+## What happens when deleting attributes
 
 Excellent question! Attribute deletion (e.g., `del instance.attr`) follows a similar pattern to setting:
 
@@ -327,7 +327,7 @@ Summary of all three operations:
 - Set: data descriptors (with `__set__`) → instance dict
 - Delete: descriptors (with `__delete__`) → instance dict → AttributeError
 
-## Concise but illustrative example to show a use case for writing your own descriptor
+## Concise but illustrative example which shows a use case for writing your own descriptor
 
 A concise example that demonstrates a practical use case for descriptors - validating attribute values:
 
@@ -377,7 +377,7 @@ Why this works well for a talk:
 3. **Declarative syntax**: The validation rules are clear at the class level
 4. **Reusability**: The same descriptor can validate age, temperature, price, etc.
 
-## A caching example - a 2-D point which stores `x` & `y`, but calculates the polar coordinates
+## A caching example - 2-D point which stores `x` & `y`, but calculates the polar coordinates `r` and `theta`
 
 ### A caching descriptor example for the 2D point use case
 
@@ -508,7 +508,7 @@ class Point:
 
 This simpler version shows the caching concept without the invalidation complexity.
 
-## Does that still work if `x` and `y` are slots and not regular attributes
+## Does this still work if `x` and `y` are slots and not regular attributes
 
 No, it doesn't work as-is with `__slots__` because the descriptors try to store data on the instance using `setattr(instance, self.name, value)`, but `__slots__` prevents arbitrary attribute
    assignment.
@@ -797,7 +797,7 @@ This is fundamental to understanding why your InvalidatingAttribute and CachedPr
 - `'__dict__'` in `__slots__`, OR
 - Using WeakKeyDictionary in the descriptor itself
 
-## Beyond the descriptor protocol, there are other special methods involved in attribute lookup or resolution
+## Beyond the descriptor protocol - other special methods involved in attribute lookup and resolution
 
 There are several special methods that interact with attribute lookup. Here's the complete picture:
 
@@ -1032,7 +1032,7 @@ class Good:
 
 **Key insight**: `__getattribute__` and `__setattr__` are the "outer layer" that orchestrate the entire lookup process, including calling into the descriptor protocol. Descriptors are more surgical (per-attribute), while `__getattribute__`/`__setattr__` affect ALL attributes.
 
-## Is there anything that I should have asked about that I did not
+## Other Questions
 
 Here are some important topics that would strengthen the conference talk:
 

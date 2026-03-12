@@ -14,7 +14,7 @@ class Region:
     @height.setter
     def height(self, value):
         if value < 0:
-            raise ValueError(f"Value must be >= 0")
+            raise ValueError("Value must be >= 0")
         self._height = value
 
     @property
@@ -24,7 +24,7 @@ class Region:
     @width.setter
     def width(self, value):
         if value < 0:
-            raise ValueError(f"Value must be >= 0")
+            raise ValueError("Value must be >= 0")
         self._width = value
 
     @property
@@ -34,7 +34,7 @@ class Region:
     @depth.setter
     def depth(self, value):
         if value < 0:
-            raise ValueError(f"Value must be >= 0")
+            raise ValueError("Value must be >= 0")
         self._depth = value
 
 

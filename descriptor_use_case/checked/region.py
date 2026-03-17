@@ -4,8 +4,8 @@ class Region:
         self.width = width
         self.depth = depth
 
-    def __str__(self):
-        return f"height={self.height}, width={self.width}, depth={self.depth}"
+    def __repr__(self):
+        return f"Region({self.height}, {self.width}, {self.depth})"
 
     @property
     def height(self):
@@ -36,10 +36,3 @@ class Region:
         if value < 0:
             raise ValueError("Value must be >= 0")
         self._depth = value
-
-
-if __name__ == "__main__":
-    region = Region(1, 2, 3)
-    print(region)  # height=1, width=2, depth=3
-
-    region.height = -42  # Raises ValueError: Value must be >= 0

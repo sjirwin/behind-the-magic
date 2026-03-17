@@ -3,3 +3,6 @@ __pycache__/
 
 # Ruff stuff
 .ruff_cache/
+
+# macOS
+.DS_Store

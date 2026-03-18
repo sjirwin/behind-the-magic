@@ -1317,18 +1317,3 @@ class Point:
     def r(self):
         return math.sqrt(self.x**2 + self.y**2)
 ```
-
-### Summary for the Talk
-
-Essential points to cover:
-
-1. ✅ What descriptors are (protocol: `__get__`, `__set__`, `__delete__`)
-2. ✅ Data vs non-data descriptors
-3. ✅ Lookup order
-4. ✅ `__set_name__` for automatic binding
-5. Functions as descriptors (method binding) ← Don't skip this!
-6. classmethod/staticmethod as descriptors
-7. When to use descriptors vs properties vs `__getattribute__`
-8. Real-world examples (ORMs, validation)
-
-The method binding example is crucial - it shows that descriptors aren't exotic, they're fundamental to how Python works!

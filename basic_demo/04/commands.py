@@ -1,5 +1,3 @@
-from pprint import pp
-pp(Demo.__dict__)
 z = Demo()
 z.a
 z.a = "hello"

@@ -9,22 +9,23 @@ class CachedProperty:
         self.name = name
         self.cache_name = f"_cache_{name}"
 
-    def __get__(self, instance, owner):
-        if instance is None:
+    def __get__(self, obj, objtype=None):
+        if obj is None:
             return self
 
         # Check if cache is valid
-        if not hasattr(instance, self.cache_name):
+        if not hasattr(obj, self.cache_name):
             # Compute and cache the value
-            value = self.compute_func(instance)
-            setattr(instance, self.cache_name, value)
+            print(f"Computing {self.name} ...")
+            value = self.compute_func(obj)
+            setattr(obj, self.cache_name, value)
 
-        return getattr(instance, self.cache_name)
+        return getattr(obj, self.cache_name)
 
-    def invalidate(self, instance):
+    def invalidate(self, obj):
         """Remove cached value."""
-        if hasattr(instance, self.cache_name):
-            delattr(instance, self.cache_name)
+        if hasattr(obj, self.cache_name):
+            delattr(obj, self.cache_name)
 
 
 class InvalidatingAttribute:
@@ -41,13 +42,13 @@ class InvalidatingAttribute:
             if isinstance(attr, CachedProperty) and name in attr.dependencies:
                 self.cached_properties.append(attr)
 
-    def __get__(self, instance, owner):
-        if instance is None:
+    def __get__(self, obj, objtype=None):
+        if obj is None:
             return self
-        return getattr(instance, self.name)
+        return getattr(obj, self.name)
 
-    def __set__(self, instance, value):
-        setattr(instance, self.name, value)
+    def __set__(self, obj, value):
+        setattr(obj, self.name, value)
         # Invalidate all dependent cached properties
         for cached_prop in self.cached_properties:
-            cached_prop.invalidate(instance)
+            cached_prop.invalidate(obj)

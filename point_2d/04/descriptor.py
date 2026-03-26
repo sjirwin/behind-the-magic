@@ -7,9 +7,9 @@ class CachedProperty:
     def __set_name__(self, owner, name):
         self.name = f"_cache_{name}"
 
-    def __get__(self, instance, owner):
-        if instance is None:
+    def __get__(self, obj, objtype=None):
+        if obj is None:
             return self
-        if not hasattr(instance, self.name):
-            setattr(instance, self.name, self.compute_func(instance))
-        return getattr(instance, self.name)
+        if not hasattr(obj, self.name):
+            setattr(obj, self.name, self.compute_func(obj))
+        return getattr(obj, self.name)

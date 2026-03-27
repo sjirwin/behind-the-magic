@@ -10,6 +10,9 @@ class CachedProperty:
     def __get__(self, obj, objtype=None):
         if obj is None:
             return self
+
         if not hasattr(obj, self.name):
-            setattr(obj, self.name, self.compute_func(obj))
+            value = self.compute_func(obj)
+            setattr(obj, self.name, value)
+
         return getattr(obj, self.name)

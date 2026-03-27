@@ -13,9 +13,7 @@ class CachedProperty:
         if obj is None:
             return self
 
-        # Check if cache is valid
         if not hasattr(obj, self.cache_name):
-            # Compute and cache the value
             print(f"Computing {self.name} ...")
             value = self.compute_func(obj)
             setattr(obj, self.cache_name, value)

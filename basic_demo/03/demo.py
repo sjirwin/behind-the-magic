@@ -1,4 +1,4 @@
-from descriptor import SqueakyDescriptor
+from squeak import SqueakyDescriptor
 
 
 class Demo:

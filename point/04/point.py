@@ -1,6 +1,6 @@
 import math
 
-from descriptor import CachedProperty
+from cached import CachedProperty
 
 
 class Point:

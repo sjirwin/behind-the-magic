@@ -6,7 +6,6 @@ class CachedProperty:
         self.dependencies = dependencies
 
     def __set_name__(self, owner, name):
-        self.name = name
         self.cache_name = f"_cache_{name}"
 
     def __get__(self, obj, objtype=None):
@@ -14,14 +13,11 @@ class CachedProperty:
             return self
 
         if not hasattr(obj, self.cache_name):
-            print(f"Computing {self.name} ...")
-            value = self.compute_func(obj)
-            setattr(obj, self.cache_name, value)
+            setattr(obj, self.cache_name, self.compute_func(obj))
 
         return getattr(obj, self.cache_name)
 
     def invalidate(self, obj):
-        """Remove cached value."""
         if hasattr(obj, self.cache_name):
             delattr(obj, self.cache_name)
 
